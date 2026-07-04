@@ -1,0 +1,1090 @@
+/* ==========================================
+   1. GLOBAL SYSTEM RESETS & GLOBAL STYLES
+   ========================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #0f0f0f;
+  color: #f1f1f1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ==========================================
+   2. NAVBAR & SEARCH ARCHITECTURE
+   ========================================== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0f0f0f;
+  padding: 0 16px;
+  height: 56px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: -0.5px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.logo span {
+  color: #ff0000;
+  font-size: 14px;
+}
+
+.search-bar {
+  display: flex;
+  flex: 0 1 600px;
+  align-items: center;
+  background-color: #121212;
+  border: 1px solid #303030;
+  border-radius: 40px;
+  overflow: hidden;
+  padding-left: 16px;
+}
+
+.search-bar input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: white;
+  height: 40px;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-btn {
+  background-color: #222222;
+  border: none;
+  border-left: 1px solid #303030;
+  color: white;
+  width: 64px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-btn:hover {
+  background-color: #272727;
+}
+
+/* User Actions Panel */
+.user-profile-zone {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.upload-trigger-btn, .logout-icon-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-trigger-btn:hover, .logout-icon-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.user-badge {
+  background-color: #3ea6ff;
+  color: #000;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.nav-signin-btn {
+  background: none;
+  border: 1px solid #3ea6ff;
+  color: #3ea6ff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.nav-signin-btn:hover {
+  background-color: rgba(62, 166, 255, 0.1);
+}
+
+/* ==========================================
+   3. APP BODY & SIDEBAR FRAMEWORK
+   ========================================== */
+.main-body {
+  display: flex;
+  flex: 1;
+}
+
+.sidebar {
+  width: 240px;
+  background-color: #0f0f0f;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 12px;
+  height: 40px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #f1f1f1;
+}
+
+.sidebar-item span {
+  font-size: 14px;
+}
+
+.sidebar-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-item.active {
+  background-color: rgba(255, 255, 255, 0.15);
+  font-weight: 500;
+}
+
+.content-area {
+  flex: 1;
+  padding: 24px;
+  background-color: #0f0f0f;
+  overflow-y: auto;
+}
+
+/* ==========================================
+   4. HOME GRID & VIDEO FEED CARDS
+   ========================================== */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 40px 16px;
+}
+
+.video-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.thumbnail-wrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #222;
+}
+
+.video-info-wrapper {
+  display: flex;
+  gap: 12px;
+}
+
+.channel-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #3ea6ff;
+  flex-shrink: 0;
+}
+
+.video-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.video-title {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #f1f1f1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.video-metadata {
+  font-size: 12px;
+  color: #aaa;
+  margin: 0;
+}
+
+/* ==========================================
+   5. CUSTOM MEDIA PLAYER ENGINE (HTML5 DECK)
+   ========================================== */
+.custom-player-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #000;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.html5-video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Controls Deck Positioning Layer */
+.player-controls-deck {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 10;
+}
+
+/* Display mechanics triggered upon container interaction */
+.custom-player-wrapper:hover .player-controls-deck {
+  opacity: 1;
+}
+
+.controls-row-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.controls-group-left, .controls-group-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ctrl-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+}
+
+.ctrl-btn:hover {
+  color: #3ea6ff;
+}
+
+/* Timeline input range scrubbing slider track */
+.player-timeline-scrubber {
+  width: 100%;
+  cursor: pointer;
+  accent-color: #ff0000;
+  height: 4px;
+  transition: height 0.1s;
+}
+
+.player-timeline-scrubber:hover {
+  height: 6px;
+}
+
+/* Volume Slider Overlay Systems */
+.volume-control-zone {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.volume-slider-range {
+  width: 0px;
+  accent-color: white;
+  cursor: pointer;
+  transition: width 0.15s ease-in-out;
+  height: 4px;
+}
+
+.volume-control-zone:hover .volume-slider-range {
+  width: 60px;
+}
+
+.timestamp-readout {
+  color: #ddd;
+  font-size: 13px;
+  font-family: sans-serif;
+  user-select: none;
+}
+
+/* Active configuration highlighter states */
+.panel-highlight {
+  color: #ff0000 !important;
+}
+
+.lang-badge-btn {
+  background-color: #333 !important;
+  padding: 4px 8px !important;
+  border-radius: 4px;
+  border: 1px solid #444 !important;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.lang-badge-btn:hover {
+  background-color: #444 !important;
+  color: white !important;
+}
+
+/* ==========================================
+   6. ACCESSIBILITY: LIVE CAPTIONS OVERLAY
+   ========================================== */
+.live-captions-overlay {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #ffffff;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 18px;
+  font-family: sans-serif;
+  text-align: center;
+  pointer-events: none;
+  max-width: 85%;
+  white-space: normal;
+  line-height: 1.4;
+  z-index: 5;
+}
+
+/* ==========================================
+   7. WATCH VIEW CONTAINER & SIDEBAR LAYOUT
+   ========================================== */
+.watch-container {
+  display: flex;
+  gap: 24px;
+  max-width: 1750px;
+  margin: 0 auto;
+}
+
+.player-section {
+  flex: 1;
+}
+
+.player-section h2 {
+  font-size: 20px;
+  margin-top: 12px;
+  text-align: left;
+}
+
+/* Sidebar context feed */
+.recommendations-section {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+}
+
+.recommendations-section h3 {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.small-video-card {
+  display: flex;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.small-thumbnail {
+  width: 168px;
+  height: 94px;
+  flex-shrink: 0;
+  background-color: #333;
+  border-radius: 8px;
+}
+
+/* ==========================================
+   8. ENGAGEMENT PILLS & COMMENTS MATRIX
+   ========================================== */
+.video-engagement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 14px;
+}
+
+.interaction-like-btn {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 18px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  transition: background-color 0.15s ease;
+}
+
+.interaction-like-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Comments Block Area */
+.comments-module-block {
+  text-align: left;
+  margin-top: 20px;
+}
+
+.comments-module-block h3 {
+  font-size: 18px;
+  margin-bottom: 16px;
+  color: #fff;
+}
+
+.comments-input-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.input-action-wrapper {
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.input-action-wrapper input {
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #333;
+  color: white;
+  padding: 8px 36px 8px 4px;
+  font-size: 14px;
+  outline: none;
+  transition: border-bottom 0.2s ease;
+}
+
+.input-action-wrapper input:focus {
+  border-bottom: 2px solid #ffffff;
+}
+
+.comment-send-submit {
+  position: absolute;
+  right: 4px;
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.comment-send-submit:hover {
+  color: #3ea6ff;
+}
+
+/* Comments Scrolling Architecture */
+.comments-render-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.single-comment-card {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.comment-content-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.commenter-meta-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+}
+
+.commenter-identity {
+  color: #fff;
+  font-weight: 500;
+}
+
+.commenter-time {
+  color: #aaa;
+}
+
+.comment-text-body {
+  color: #eee;
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* ==========================================
+   9. AUTHENTICATION SCREENS
+   ========================================== */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+}
+
+.auth-box {
+  background-color: #121212;
+  border: 1px solid #222;
+  padding: 40px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+}
+
+.auth-box h2 {
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 12px;
+  background-color: #000;
+  border: 1px solid #333;
+  color: white;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  outline: none;
+}
+
+.auth-input:focus {
+  border-color: #3ea6ff;
+}
+
+.auth-btn-submit {
+  width: 100%;
+  padding: 12px;
+  background-color: #3ea6ff;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.auth-btn-submit:hover {
+  background-color: #65b8ff;
+}
+
+.error-msg {
+  color: #ff4a4a;
+  font-size: 13px;
+  margin-top: -12px;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+/* ==========================================
+   10. MODAL DIALOGUES (UPLOADER DRAWER)
+   ========================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-box {
+  background-color: #212121;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  padding: 24px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #333;
+  padding-bottom: 12px;
+}
+/* ==========================================
+   11. DYNAMIC SUBSCRIPTIONS & LIKE ACTIVE STATES
+   ========================================== */
+
+/* Like Button toggle state changes */
+.interaction-like-btn.liked {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Subscribe Button Pill Formatting */
+.subscribe-btn {
+  background-color: #f1f1f1;
+  color: #0f0f0f;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 18px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  margin-left: 12px;
+  transition: background-color 0.15s ease;
+}
+
+.subscribe-btn:hover {
+  background-color: #ff0000;
+}
+
+.subscribe-btn.subscribed {
+  background-color: #272727;
+  color: rgb(22, 0, 0);
+}
+
+.subscribe-btn.subscribed:hover {
+  background-color: #ff8484;
+}
+
+/* Authentication Toggle Navigation Setup (Spacing) */
+.auth-toggle-text {
+  margin-top: 20px;
+  font-size: 13px;
+  color: #aaa;
+}
+
+.auth-toggle-text a {
+  color: #3ea6ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-toggle-text a:hover {
+  text-decoration: underline;
+}
+/* ==========================================================================
+   12. ACCOUNT DASHBOARD, PUBLIC CHANNELS & PREMIUM STUDIO UPLOADER STYLES
+   ========================================================================== */
+
+/* Account Settings Setup */
+.account-dashboard-wrapper, .public-channel-viewport {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: left;
+  padding: 20px 0;
+}
+
+.profile-hero-card {
+  display: flex;
+  gap: 40px;
+  background-color: #161616;
+  border: 1px solid #272727;
+  padding: 32px;
+  border-radius: 16px;
+  margin-bottom: 40px;
+}
+
+.avatar-uploader-workspace {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-width: 180px;
+}
+
+.giant-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #272727;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #3ea6ff;
+}
+
+.avatar-file-label {
+  font-size: 13px;
+  color: #3ea6ff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+}
+
+.pending-indicator {
+  font-size: 11px;
+  color: #aaa;
+  text-align: center;
+  max-width: 150px;
+}
+
+.profile-details-workspace {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.details-form-deck {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-group label {
+  font-size: 12px;
+  color: #aaa;
+  font-weight: 500;
+}
+
+.dashboard-input {
+  width: 100%;
+  padding: 10px 14px;
+  background-color: #0f0f0f;
+  border: 1px solid #333;
+  color: white;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+}
+
+.dashboard-input:focus {
+  border-color: #3ea6ff;
+}
+
+.dashboard-input.disabled {
+  color: #666;
+  background-color: #121212;
+  cursor: not-allowed;
+}
+
+.dashboard-save-btn {
+  align-self: flex-start;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  color: #000;
+  border: none;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.dashboard-save-btn:hover {
+  background-color: #d1d1d1;
+}
+
+.dashboard-divider {
+  border: 0;
+  height: 1px;
+  background: #272727;
+}
+
+/* Channel Management Sub-block */
+.channel-status-box {
+  background-color: #0f0f0f;
+  border: 1px dashed #333;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.channel-active-indicator {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.channel-active-indicator h4 {
+  font-size: 16px;
+  color: white;
+}
+
+.channel-link-routing {
+  font-size: 14px;
+  color: #3ea6ff;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.channel-link-routing:hover {
+  text-decoration: underline;
+}
+
+.channel-creation-form h4 {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.channel-creation-form p {
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 14px;
+}
+
+.creation-row {
+  display: flex;
+  gap: 12px;
+}
+
+.create-channel-submit-btn {
+  background-color: #3ea6ff;
+  color: black;
+  font-weight: bold;
+  border: none;
+  padding: 0 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* Visiting Public Channels Blueprint */
+.channel-billboard-header {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 20px 0;
+}
+
+.billboard-avatar {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  background-color: #333;
+  background-size: cover;
+  background-position: center;
+}
+
+.billboard-meta h1 {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.billboard-meta .handle {
+  font-size: 16px;
+  color: #aaa;
+  margin-top: 2px;
+}
+
+.billboard-meta .subs-metrics {
+  font-size: 14px;
+  color: #aaa;
+  margin-top: 6px;
+}
+
+.empty-message {
+  color: #aaa;
+  font-size: 14px;
+  margin-top: 12px;
+}
+
+/* High-Fidelity Studio Production Uploader Deck */
+.premium-uploader-deck {
+  max-width: 600px !important;
+  background-color: #161616;
+  border: 1px solid #282828;
+}
+
+.header-title-combo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.uploader-form-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.input-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-block label {
+  font-size: 13px;
+  color: #aaa;
+  font-weight: 500;
+}
+
+.styled-input {
+  background-color: #0f0f0f !important;
+  border: 1px solid #2d2d2d !important;
+  margin-bottom: 0 !important;
+}
+
+.upload-dropzone-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.dropzone-card {
+  border: 2px dashed #333;
+  background-color: #0f0f0f;
+  border-radius: 10px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s;
+  text-align: center;
+}
+
+.dropzone-card:hover {
+  background-color: #121212;
+  border-color: #3ea6ff;
+}
+
+.dropzone-card span {
+  font-size: 13px;
+  color: #ddd;
+  font-weight: 500;
+}
+
+.file-selected-tag {
+  font-size: 11px;
+  color: #3ea6ff;
+  word-break: break-all;
+  margin-top: 4px;
+}
+
+.uploader-status-alert-pill {
+  background-color: rgba(62, 166, 255, 0.1);
+  border: 1px solid rgba(62, 166, 255, 0.2);
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.uploader-status-alert-pill p {
+  color: #3ea6ff;
+  font-size: 13px;
+}
+
+.uploader-action-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid #2d2d2d;
+  padding-top: 16px;
+}
+
+.uploader-cancel {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0 16px;
+  font-size: 14px;
+}
+
+.uploader-cancel:hover {
+  color: white;
+}
+
+.uploader-publish-btn {
+  background-color: #cc0000;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.uploader-publish-btn:hover {
+  background-color: #ff0000;
+}
+
+.handle-link {
+  cursor: pointer;
+}
+.handle-link:hover {
+  color: #fff !important;
+}
+
+.fallback-gradient {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1e1e24, #2a2a35);
+}
